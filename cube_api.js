@@ -107,7 +107,7 @@ function triggerQuery() {
     const vendorNameInput = document.getElementById('vendorName').value;
     const storeNameInput = document.getElementById('storeName').value;
 
-    const dateRange = dateRangeInput || "last 3 months"; // Default to "last 3 months" if input is empty
+    const dateRange = dateRangeInput || "last 6 months"; // Default to "last 6 months" if input is empty
     const granularity = granularityInput || ""; // Empty string means no granularity
     const categoryName = categoryNameInput || ""; // Empty string means no filter
     const itemDescription = itemDescriptionInput || ""; // Empty string means no filter
