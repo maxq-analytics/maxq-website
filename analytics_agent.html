@@ -4,34 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analytics Agent Demo</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <h1>Analytics Agent Demo</h1>
 
-<label for="dateRange">Date Range:</label>
-<input type="text" id="dateRange" name="dateRange"><br>
+<label for="question">Question:</label>
+<input type="text" id="question" name="question"><br>
 
-<label for="granularity">Granularity:</label>
-<input type="text" id="granularity" name="granularity"><br>
+<!--<label for="granularity">Granularity:</label>-->
+<!--<input type="text" id="granularity" name="granularity"><br>-->
 
-<label for="categoryName">Category Name:</label>
-<input type="text" id="categoryName" name="categoryName"><br>
+<!--<label for="categoryName">Category Name:</label>-->
+<!--<input type="text" id="categoryName" name="categoryName"><br>-->
 
-<label for="itemDescription">Item Description:</label>
-<input type="text" id="itemDescription" name="itemDescription"><br>
+<!--<label for="itemDescription">Item Description:</label>-->
+<!--<input type="text" id="itemDescription" name="itemDescription"><br>-->
 
-<label for="brandName">Brand Name:</label>
-<input type="text" id="brandName" name="brandName"><br>
+<!--<label for="brandName">Brand Name:</label>-->
+<!--<input type="text" id="brandName" name="brandName"><br>-->
 
-<label for="vendorName">Vendor Name:</label>
-<input type="text" id="vendorName" name="vendorName"><br>
+<!--<label for="vendorName">Vendor Name:</label>-->
+<!--<input type="text" id="vendorName" name="vendorName"><br>-->
 
-<label for="storeName">Store Name:</label>
-<input type="text" id="storeName" name="storeName"><br>
+<!--<label for="storeName">Store Name:</label>-->
+<!--<input type="text" id="storeName" name="storeName"><br>-->
 
-<button onclick="triggerQuery()">Run Query</button>
+<button id="send_question">Send Question</button>
 <script src="src/cube_ai_agent.js"></script>
+
+<section>
+    <h4>JSON-formatted data from the Cube API:</h4>
+    <div id="output">Awaiting user input...</div>
+</section>
 
 </body>
 </html>

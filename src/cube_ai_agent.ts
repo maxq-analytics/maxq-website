@@ -10,23 +10,22 @@ const CubeAIapiToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MzcxOTU
 const CubeLoadApiUrl = 'https://bottom-echidna.gcp-us-central1.cubecloudapp.dev/cubejs-api/v1/load';
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3Mzc1NTQ4NjF9.qTxhDtkR5dzdp4FWijlPrSkxhn-TfS7Q_oVLho2Put8';
 
-// Input AI Query
-let AnalyticsAgentQuestion = 'What was the average retail price per bottle and total number bottles of all Smirnoff products sold in Des Moines in April 2022, for all stores with "Hy-Vee" in their name?';
-const cubeViewModel = 'abd_analytics'
-const payload = {
-    messages: [
-        {
-            role: 'user',
-            content: AnalyticsAgentQuestion,
-            views: cubeViewModel,
-            runQuery: true
-        },
-    ],
-};
-
 
 // AI API function -----------------------------
 async function fetchCubeAIRequest() {
+// Input AI Query
+    let AnalyticsAgentQuestion = (document.getElementById('question') as HTMLInputElement).value;
+    const cubeViewModel = 'abd_analytics'
+    const payload = {
+        messages: [
+            {
+                role: 'user',
+                content: AnalyticsAgentQuestion,
+                views: cubeViewModel,
+                runQuery: true
+            },
+        ],
+    };
     try {
         const response = await fetch(cubeAiApiUrl, {
             method: 'POST',
@@ -41,7 +40,7 @@ async function fetchCubeAIRequest() {
         console.error('Error:', error);
         throw error;
     }
-    ;
+
 }
 
 
@@ -66,25 +65,37 @@ async function getJSONFromAPI(url: string | URL | Request) {
 
 // Main function -----------------------------
 async function main() {
-
     // Interacting with AI API
-    const data = await fetchCubeAIRequest();
-    console.log('Cube Query AI Generated:', data.cube_query);
-    const cubeQuery = data.cube_query;
-    const cubeQueryString = JSON.stringify(cubeQuery);
+    try {
+        const data = await fetchCubeAIRequest();
+        console.log('Cube Query AI Generated:', data.cube_query);
+        const cubeQuery = data.cube_query;
+        const cubeQueryString = JSON.stringify(cubeQuery);
 
+        // Interacting with REST API
+        const CubeLoadApiUrlParametered = `${CubeLoadApiUrl}?query=${encodeURIComponent(cubeQueryString)}`;
+        const outputDiv = document.getElementById('output');
 
-    // Interacting with REST API
-    const CubeLoadApiUrlParametered = `${CubeLoadApiUrl}?query=${cubeQueryString}`;
-    getJSONFromAPI(CubeLoadApiUrlParametered)
-        .then(jsonData => {
+        const jsonData = await getJSONFromAPI(CubeLoadApiUrlParametered);
+        console.log('Cube Data Model response:', jsonData.data);
+
+        if (outputDiv) {
             const responseText = jsonData.data;
-            console.log('Cube Data Model response:', responseText);
-        })
+            if (responseText) {
+                outputDiv.textContent = JSON.stringify(responseText, null, 2);
+            } else {
+                outputDiv.textContent = 'No data available for the provided filters.';
+            }
+        } else {
+            console.error('Output div not found in the document.');
+        }
+    } catch (error) {
+        console.error('Error in main function:', error);
+    }
 }
 
-
-main().then();
 // Requesting the Cube.dev data model  
 
 
+// Event Listener for Button Click
+document.getElementById('send_question').addEventListener('click', main);
