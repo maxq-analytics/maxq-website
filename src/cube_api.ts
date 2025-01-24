@@ -3,10 +3,14 @@ const CubeLoadApiUrl = 'https://bottom-echidna.gcp-us-central1.cubecloudapp.dev/
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MzQ3ODA1MDZ9.EZw13FmA6ZXWBM_KaJoLXbanamhoTX8ZSiC1GRjuR2c';
 
 // Function to Create Cube Query with User Input
-function createCubeQuery(dateRange, granularity, categoryName, itemDescription, brandName, vendorName, storeName) {
-    const timeDimension = {
+function createCubeQuery(dateRange: any, granularity: any, categoryName: any, itemDescription: any, brandName: any, vendorName: any, storeName: any) {
+
+    let timeDimension: { dateRange: any; dimension: string; granularity: undefined };
+
+    timeDimension = {
+        "dateRange": dateRange,
         "dimension": "ext_invoices.date_day",
-        "dateRange": dateRange
+        "granularity": undefined
     };
 
     if (granularity) {
@@ -80,7 +84,7 @@ function createCubeQuery(dateRange, granularity, categoryName, itemDescription, 
 }
 
 // Function to Fetch Data from API
-async function getJSONFromAPI(url) {
+async function getJSONFromAPI(url: string | URL | Request) {
     try {
         const response = await fetch(url, {
             method: 'GET',
@@ -89,8 +93,7 @@ async function getJSONFromAPI(url) {
                 'Content-Type': 'application/json'
             }
         });
-        const data = await response.json();
-        return data;
+        return await response.json();
     } catch (error) {
         console.error('Error:', error);
         throw error;
@@ -99,13 +102,13 @@ async function getJSONFromAPI(url) {
 
 // Function to Trigger Query
 function triggerQuery() {
-    const dateRangeInput = document.getElementById('dateRange').value;
-    const granularityInput = document.getElementById('granularity').value;
-    const categoryNameInput = document.getElementById('categoryName').value;
-    const itemDescriptionInput = document.getElementById('itemDescription').value;
-    const brandNameInput = document.getElementById('brandName').value;
-    const vendorNameInput = document.getElementById('vendorName').value;
-    const storeNameInput = document.getElementById('storeName').value;
+    const dateRangeInput = (document.getElementById('dateRange') as HTMLInputElement).value;
+    const granularityInput = (document.getElementById('granularity') as HTMLInputElement).value;
+    const categoryNameInput = (document.getElementById('categoryName') as HTMLInputElement).value;
+    const itemDescriptionInput = (document.getElementById('itemDescription') as HTMLInputElement).value;
+    const brandNameInput = (document.getElementById('brandName') as HTMLInputElement).value;
+    const vendorNameInput = (document.getElementById('vendorName') as HTMLInputElement).value;
+    const storeNameInput = (document.getElementById('storeName') as HTMLInputElement).value;
 
     const dateRange = dateRangeInput || "last 6 months"; // Default to "last 6 months" if input is empty
     const granularity = granularityInput || ""; // Empty string means no granularity
