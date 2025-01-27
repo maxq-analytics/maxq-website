@@ -75,6 +75,7 @@ async function main() {
         // Interacting with REST API
         const CubeLoadApiUrlParametered = `${CubeLoadApiUrl}?query=${encodeURIComponent(cubeQueryString)}`;
         const outputDiv = document.getElementById('output');
+        const outputJSONDiv = document.getElementById('output_json');
 
         const jsonData = await getJSONFromAPI(CubeLoadApiUrlParametered);
         console.log('Cube Data Model response:', jsonData.data);
@@ -82,7 +83,8 @@ async function main() {
         if (outputDiv) {
             const responseText = jsonData.data;
             if (responseText) {
-                outputDiv.textContent = JSON.stringify(responseText, null, 2);
+                outputDiv.textContent = JSON.stringify(responseText, null, 2)
+                outputJSONDiv.textContent = JSON.stringify(responseText, null, 2)
             } else {
                 outputDiv.textContent = 'No data available for the provided filters.';
             }

@@ -136,6 +136,7 @@ function triggerQuery() {
 
             if (responseText) {
                 outputDiv.textContent = JSON.stringify(responseText, null, 2);
+
             } else {
                 outputDiv.textContent = 'No data available for the provided filters.';
             }

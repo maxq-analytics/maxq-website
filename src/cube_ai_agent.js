@@ -117,7 +117,7 @@ function getJSONFromAPI(url) {
 // Main function -----------------------------
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var data, cubeQuery, cubeQueryString, CubeLoadApiUrlParametered, outputDiv, jsonData, responseText, error_3;
+        var data, cubeQuery, cubeQueryString, CubeLoadApiUrlParametered, outputDiv, outputJSONDiv, jsonData, responseText, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -130,6 +130,7 @@ function main() {
                     cubeQueryString = JSON.stringify(cubeQuery);
                     CubeLoadApiUrlParametered = "".concat(CubeLoadApiUrl, "?query=").concat(encodeURIComponent(cubeQueryString));
                     outputDiv = document.getElementById('output');
+                    outputJSONDiv = document.getElementById('output_json');
                     return [4 /*yield*/, getJSONFromAPI(CubeLoadApiUrlParametered)];
                 case 2:
                     jsonData = _a.sent();
@@ -138,6 +139,7 @@ function main() {
                         responseText = jsonData.data;
                         if (responseText) {
                             outputDiv.textContent = JSON.stringify(responseText, null, 2);
+                            outputJSONDiv.textContent = JSON.stringify(responseText, null, 2);
                         }
                         else {
                             outputDiv.textContent = 'No data available for the provided filters.';
