@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic API Data with Filters | Alcoholic Beverage Division - State of Iowa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            background-color: #ffffff;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 400px;
+            overflow-y: auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control,
+        .form-select {
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="text-center mb-4">
+            <h1 class="display-6">Semantic API Data Fetcher with Filters</h1>
+            <p class="text-muted">Alcoholic Beverage Division - State of Iowa</p>
+        </header>
+
+        <form id="filterForm">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="dateRange" class="form-label">Date Range</label>
+                    <input type="text" id="dateRange" class="form-control" placeholder="e.g., last 6 months">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="granularity" class="form-label">Granularity</label>
+                    <select id="granularity" class="form-select">
+                        <option value="" selected>No Granularity</option>
+                        <option value="day">Day</option>
+                        <option value="week">Week</option>
+                        <option value="month">Month</option>
+                        <option value="year">Year</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="categoryName" class="form-label">Category Name</label>
+                    <input type="text" id="categoryName" class="form-control" placeholder="e.g., Vodka">
+                </div>
+
+                <div class="col-md-4">
+                    <label for="itemDescription" class="form-label">Item Description</label>
+                    <input type="text" id="itemDescription" class="form-control" placeholder="e.g., Black Label">
+                </div>
+
+                <div class="col-md-4">
+                    <label for="brandName" class="form-label">Brand Name</label>
+                    <input type="text" id="brandName" class="form-control" placeholder="e.g., Smirnoff">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="vendorName" class="form-label">Vendor Name</label>
+                    <input type="text" id="vendorName" class="form-control" placeholder="e.g., Diageo">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="storeName" class="form-label">Store Name</label>
+                    <input type="text" id="storeName" class="form-control" placeholder="e.g., Hy-Vee">
+                </div>
+
+                <div class="col-12">
+                    <button type="button" id="fetchDataButton" class="btn btn-primary">Fetch Data (or press Enter)</button>
+                </div>
+            </div>
+        </form>
+
+        <section class="mt-4">
+            <h4>JSON-formatted data from the Cube API:</h4>
+            <div id="output">Awaiting user input...</div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="src/cube_api.js"></script>
+</body>
+
+</html>
